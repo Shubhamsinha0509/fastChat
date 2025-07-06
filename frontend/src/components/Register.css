@@ -1,0 +1,292 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.Register-Container {
+  height: fit-content;
+  width: 28vw;
+  border: 1px solid rgba(0, 0, 0, 0.203);
+  border-radius: 1rem;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.616);
+}
+a {
+  color: rgb(76, 76, 167);
+}
+
+.FormWrapper {
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  flex: 1;
+}
+
+.FormWrapper .register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.register p {
+  font-weight: 100;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.63);
+  /* color: #051f76; */
+}
+
+.FormWrapper .registerHead {
+  width: fit-content;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  /* gap: 0.8rem; */
+  font-size: 1.2rem;
+}
+
+.registerHead p {
+  /* color: #10129f; */
+  font-size: 2rem;
+  letter-spacing: 2px;
+  font-weight: 900;
+  gap: 1px;
+  line-height: 2;
+  color: #051f76;
+  background-image: radial-gradient( circle farthest-corner at 50.3% 47.3%,  rgba(113,42,92,1) 0.1%, rgba(40,25,46,1) 90% );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* color: inherit; */
+}
+
+/* 🚀 Rocket Icon Wrapper */
+.icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bounce 1s infinite ease-in-out;
+}
+
+.fastchat-icon {
+  height: 55px;
+  width: 60px;
+  transition: transform 0.5s;
+  z-index: 2;
+}
+
+/* Fire under rocket */
+.rocket-fire {
+  position: absolute;
+  bottom: -10px;
+  width: 12px;
+  height: 20px;
+  background: radial-gradient(circle, #ffa500 30%, #ff4500 90%);
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: flicker 0.3s infinite;
+  z-index: 1;
+  filter: blur(1px);
+}
+
+.rocket-fire.small {
+  width: 6px;
+  height: 12px;
+  background: radial-gradient(circle, #ffff00 10%, #ff0000 90%);
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.6;
+  animation: flicker 0.25s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+  }
+  30% {
+    transform: scale(1.05) translateY(-3px);
+  }
+  60% {
+    transform: scale(0.98) translateY(2px);
+  }
+}
+
+/*Launch */
+.rocket-launch {
+  animation: rocketLaunch 1s ease-in forwards;
+}
+
+/* 🔥 Fire Flicker */
+@keyframes flicker {
+  0% {
+    transform: scaleY(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scaleY(1.3);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0.8;
+  }
+}
+
+/* 🔼 Rocket Launch Motion */
+@keyframes orbitPath {
+  0% {
+    transform: rotate(0deg);
+  }
+  60% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg) translateY(-300px);
+  }
+}
+@keyframes rocketLaunch {
+  0% {
+    transform: rotate(0deg) translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  60% {
+    transform: rotate(360deg) translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotate(360deg) translate(-50%, -400px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+.FormWrapper form {
+  margin-top: 1.5rem;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+}
+
+.FormWrapper form input {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid #3b5096;
+  outline: none;
+  font-size: 0.8rem;
+  margin: auto;
+  padding: 5px;
+  width: 80%;
+}
+.FormWrapper form input::placeholder {
+  color: #00000084;
+}
+/* .FormWrapper form input:focus{
+    border: .5px solid #5759C3;
+    border-radius: 5px;
+   
+} */
+
+.FormWrapper form input:nth-of-type(2),
+.FormWrapper form input:nth-of-type(3) {
+  margin-top: 1.5rem;
+}
+
+.FormWrapper form input:nth-of-type(4) {
+  margin-top: 1.5rem;
+  border: none;
+}
+
+.FormWrapper form button {
+  background-color: #5b65f8;
+  margin: auto;
+  margin-top: 1rem;
+  padding: 10px;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: 800;
+  width: 80%;
+  border: none;
+  outline: none;
+}
+.text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  font-size: 1.1rem;
+  font-weight: 100;
+  color: rgba(0, 0, 0, 0.71);
+  margin-top: 1rem;
+}
+.eye-span {
+  position: absolute;
+  display: inline-block;
+  top: 56%;
+  left: 85%;
+  font-size: 1rem;
+  color: rgba(0, 0, 0, 0.639);
+  font-weight: 200;
+  margin-right: 10px;
+}
+.Login-eye {
+  top: 41%;
+}
+.eye {
+  height: 20px;
+  width: 20px;
+}
+label {
+  margin-top: 1rem;
+  margin-left: 10%;
+  display: flex;
+  font-size: 1rem;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 100;
+  color: #0000009b;
+  cursor: pointer;
+}
+label img {
+  height: 30px;
+  width: 30px;
+}
+
+/* 📱 Responsive */
+@media (max-width: 600px) {
+  .registerHead img {
+    height: 55px;
+    width: 55px;
+  }
+  label {
+    font-size: 0.8rem;
+    gap: 0.7rem;
+  }
+
+  .Register-Container {
+    width: 93vw;
+    height: fit-content;
+    font-size: 1.1rem;
+    /* bottom: 5rem; */
+  }
+}
+
+@media (min-width: 800px) and (max-width: 1024px) {
+  /* Your styles here */
+  .Register-Container {
+    height: fit-content;
+    width: 25vw;
+    font-size: 1.1rem;
+    /* bottom: 5rem; */
+  }
+}
