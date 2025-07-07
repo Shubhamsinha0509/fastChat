@@ -53,13 +53,17 @@ a {
 
 .registerHead p {
   /* color: #10129f; */
-  font-size: 2rem;
+  font-size: 1.5rem;
   letter-spacing: 2px;
   font-weight: 900;
   gap: 1px;
   line-height: 2;
   color: #051f76;
-  background-image: radial-gradient( circle farthest-corner at 50.3% 47.3%,  rgba(113,42,92,1) 0.1%, rgba(40,25,46,1) 90% );
+  background-image: radial-gradient(
+    circle farthest-corner at 50.3% 47.3%,
+    rgba(113, 42, 92, 1) 0.1%,
+    rgba(40, 25, 46, 1) 90%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   /* color: inherit; */
@@ -205,7 +209,8 @@ a {
   border: none;
 }
 
-.FormWrapper form button {
+.FormWrapper form button,
+.submit-btn {
   background-color: #5b65f8;
   margin: auto;
   margin-top: 1rem;
@@ -218,7 +223,32 @@ a {
   width: 80%;
   border: none;
   outline: none;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: color 1.5s ease-in-out;
 }
+
+.submit-btn::after {
+  content: "";
+  background-color: rgba(255, 255, 255, 0.642);
+  height: 100%;
+  width: 0%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  border-radius: 10px;
+  transition: width 1.5s ease-in-out;
+}
+/* This is the trigger for animation */
+.submit-btn.animate::after {
+  width: 100%;
+}
+.submit-btn.animate {
+  color: rgba(0, 0, 0, 0.616);
+}
+
 .text {
   display: flex;
   justify-content: center;
@@ -281,11 +311,11 @@ label img {
   }
 }
 
-@media (min-width: 800px) and (max-width: 1024px) {
+@media (min-width: 600px) and (max-width: 1024px) {
   /* Your styles here */
   .Register-Container {
     height: fit-content;
-    width: 25vw;
+    max-width: 45vw;
     font-size: 1.1rem;
     /* bottom: 5rem; */
   }

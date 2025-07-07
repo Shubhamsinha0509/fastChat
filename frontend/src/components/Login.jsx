@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [mail, setmail] = useState("");
   const logoWrapperRef = useRef(null);
+  const submitRef = useRef(null);
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -27,17 +28,36 @@ const Login = () => {
     }
 
     const promise = new Promise((resolve, reject) => {
-      if (logoWrapperRef.current) {
+      if (logoWrapperRef.current && submitRef.current) {
         logoWrapperRef.current.classList.add("rocket-launch");
 
+        // First add base class
+        submitRef.current.classList.add("submit-btn");
+
+        // Then force reflow to restart animation
+        void submitRef.current.offsetWidth;
+
+        // Add animation class to trigger width transition
+        submitRef.current.classList.add("animate");
+
         setTimeout(() => {
-          logoWrapperRef.current.classList.remove("rocket-launch");
-          resolve("Registered successfully!");
-        }, 950);
+          logoWrapperRef.current.classList.remove("rocket-launch"); // Remove animate to allow re-trigger
+          resolve("Logged in successfully!");
+        }, 1200);
       }
-    }).then((msg) => {
-      toast.success(msg);
-    });
+    })
+      .then(
+        (msg) =>
+          new Promise((resolve) =>
+            setTimeout(() => {
+              submitRef.current.classList.remove("animate");
+              resolve(msg);
+            }, 400)
+          )
+      )
+      .then((msg) => {
+        toast.success(msg);
+      });
   };
   return (
     <div>
@@ -45,10 +65,7 @@ const Login = () => {
         <div className="FormWrapper">
           <div className="registerHead">
             <div className="icon-wrapper" ref={logoWrapperRef}>
-              <img
-                src="/Rocket.png"
-                className="fastchat-icon"
-              />
+              <img src="/Rocket.png" className="fastchat-icon" />
               <div className="rocket-fire"></div>
               <div className="rocket-fire small"></div>
             </div>
@@ -90,7 +107,7 @@ const Login = () => {
             >
               <FontAwesomeIcon icon={!showPassword ? faEyeSlash : faEye} />
             </span>
-            <button type="submit" style={{ marginTop: "3rem" }}>
+            <button type="submit" style={{ marginTop: "3rem" }} ref={submitRef}>
               sign in
             </button>
           </form>
