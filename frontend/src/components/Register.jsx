@@ -17,6 +17,8 @@ const Register = () => {
   const logoWrapperRef = useRef(null);
   const passwordRegex = /^.{6}$/;
 
+  const submitRef = useRef(null);
+
 // ..states
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -31,18 +33,30 @@ const Register = () => {
       return;
     }
 
-    const promise = new Promise((resolve,reject) => {
-      if (logoWrapperRef.current) {
-        logoWrapperRef.current.classList.add("rocket-launch");
+const promise = new Promise((resolve, reject) => {
+  if (logoWrapperRef.current && submitRef.current) {
+    logoWrapperRef.current.classList.add("rocket-launch");
 
-        setTimeout(() => {
-          logoWrapperRef.current.classList.remove("rocket-launch");
-          resolve('Registered successfully!')
-        }, 1000);
-      }
-    }).then((msg)=>new Promise((resolve,reject)=>{setTimeout(()=>{resolve(msg)},400)})).then((msg)=>{
-            toast.success(msg);
-    })
+    // First add base class
+    submitRef.current.classList.add('submit-btn');
+
+    // Then force reflow to restart animation
+    void submitRef.current.offsetWidth;
+
+    // Add animation class to trigger width transition
+    submitRef.current.classList.add('animate');
+
+    setTimeout(() => {
+      logoWrapperRef.current.classList.remove("rocket-launch"); // Remove animate to allow re-trigger
+      resolve('Registered successfully!');
+    }, 1200);
+  }
+})
+.then(msg => new Promise((resolve) => setTimeout(() => {      submitRef.current.classList.remove('animate');resolve(msg)}, 400)))
+.then(msg => {
+  toast.success(msg);
+});
+
 
 
   };
@@ -99,7 +113,7 @@ const Register = () => {
             <FontAwesomeIcon icon={!showPassword ? faEyeSlash : faEye} />
           </span>
 
-          <button type="submit">Sign up</button>
+          <button type="submit" ref={submitRef}>Sign up</button>
         </form>
         <div className="text">
           you do have an account? <Link to={"/Login"}>Login</Link>
