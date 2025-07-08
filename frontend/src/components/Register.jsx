@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
+import AuthStore from "../Stores/AuthStore";
 
 const Register = () => {
+  const {handleRegister,UserData} = AuthStore();
 
   // states
   const [showPassword, setshowPassword] = useState(false);
-
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [mail, setmail] = useState("");
@@ -64,8 +65,8 @@ const promise = new Promise((resolve, reject) => {
   toast.success(msg);
 });
 
-
-
+    handleRegister(name,mail,password);
+    // console.log(UserData);
   };
 
   return (
