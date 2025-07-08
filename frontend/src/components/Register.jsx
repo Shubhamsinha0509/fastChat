@@ -45,14 +45,21 @@ const promise = new Promise((resolve, reject) => {
 
     // Add animation class to trigger width transition
     submitRef.current.classList.add('animate');
+    submitRef.current.setAttribute('disabled', 'true');
 
     setTimeout(() => {
       logoWrapperRef.current.classList.remove("rocket-launch"); // Remove animate to allow re-trigger
       resolve('Registered successfully!');
-    }, 1200);
+    }, 1300);
   }
 })
-.then(msg => new Promise((resolve) => setTimeout(() => {      submitRef.current.classList.remove('animate');resolve(msg)}, 400)))
+.then(msg => new Promise((resolve) => setTimeout(() => {      
+  submitRef.current.classList.remove('animate');
+  resolve(msg)
+    // submitRef.current.removeAttribute('disabled');
+    submitRef.current.innerHTML = 'wait ...'
+    submitRef.current.style.color = 'skyblue'
+}, 1000)))
 .then(msg => {
   toast.success(msg);
 });

@@ -39,6 +39,7 @@ const Login = () => {
 
         // Add animation class to trigger width transition
         submitRef.current.classList.add("animate");
+        submitRef.current.setAttribute('disabled', 'true');
 
         setTimeout(() => {
           logoWrapperRef.current.classList.remove("rocket-launch"); // Remove animate to allow re-trigger
@@ -52,7 +53,9 @@ const Login = () => {
             setTimeout(() => {
               submitRef.current.classList.remove("animate");
               resolve(msg);
-            }, 400)
+                  submitRef.current.innerHTML = 'wait ...'
+                  submitRef.current.style.color = 'skyblue';
+            }, 1000)
           )
       )
       .then((msg) => {
