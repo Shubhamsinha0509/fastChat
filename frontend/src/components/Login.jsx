@@ -5,15 +5,16 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
+import AuthStore from "../Stores/AuthStore";
 
 const Login = () => {
   const [showPassword, setshowPassword] = useState(false);
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [mail, setmail] = useState("");
   const logoWrapperRef = useRef(null);
   const submitRef = useRef(null);
-
+  const {handleLogin} = AuthStore();
   const handleSignUp = (e) => {
     e.preventDefault();
 
@@ -44,7 +45,7 @@ const Login = () => {
         setTimeout(() => {
           logoWrapperRef.current.classList.remove("rocket-launch"); // Remove animate to allow re-trigger
           resolve("Logged in successfully!");
-        }, 1200);
+        }, 1300);
       }
     })
       .then(
@@ -61,6 +62,8 @@ const Login = () => {
       .then((msg) => {
         toast.success(msg);
       });
+
+      handleLogin(mail,password)
   };
   return (
     <div>
