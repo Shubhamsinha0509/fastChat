@@ -67,7 +67,6 @@ const promise = new Promise((resolve, reject) => {
 
     handleRegister(name,mail,password);
     // console.log(UserData);
-
   };
 
   return (
