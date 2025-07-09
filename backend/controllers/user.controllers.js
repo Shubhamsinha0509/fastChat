@@ -1,7 +1,6 @@
 import asyncHandler from "express-async-handler";
-import { User } from "../models/user.models";
+import User from "../models/user.models.js";
 
-// Get profile of logged-in user
 export const getUserProfile = asyncHandler(async (req, res) => {
   res.json({
     _id: req.user._id,
@@ -11,7 +10,6 @@ export const getUserProfile = asyncHandler(async (req, res) => {
   });
 });
 
-// Search Users
 export const searchUsers = asyncHandler(async (req, res) => {
   const keyword = req.query.search
     ? {

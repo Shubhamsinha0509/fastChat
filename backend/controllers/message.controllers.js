@@ -1,11 +1,9 @@
 import asyncHandler from "express-async-handler";
-import { User } from "../models/user.models";
-import { Chat } from "../models/chat.models";
-import { Message } from "../models/message.models";
+import User from "../models/user.models.js";
+import Chat from "../models/chat.models.js";
+import Message from "../models/message.models.js";
 
 // Send a message
-// POST/api/messages
-// @access Private
 export const sendMessage = asyncHandler(async (req, res) => {
   const { content, chatId } = req.body;
 
@@ -19,25 +17,22 @@ export const sendMessage = asyncHandler(async (req, res) => {
     chat: chatId,
   });
 
-  message = await message.populate("sender", "name email avatar");
+  message = await message.populate("sender", "username email avatar");
   message = await message.populate("chat");
   message = await User.populate(message, {
-    path: "chat.users",
-    select: "name email acatar",
+    path: "chat.members",
+    select: "username email avatar",
   });
 
-  // update latestMessage field in chat
   await Chat.findByIdAndUpdate(chatId, { latestMessage: message });
 
   res.status(201).json(message);
 });
 
-// Get all messages for a chat
-// GET/api/messages/:id
-// @access private
+
 export const getAllMessages = asyncHandler(async (req, res) => {
   const messages = await Message.find({ chat: req.params.chatId })
-    .populate("sender", "name email avatar")
+    .populate("sender", "username email avatar")
     .populate("chat");
 
   res.json(messages);
