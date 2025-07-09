@@ -1,10 +1,12 @@
 import { Router } from "express";
-import { getUserProfile, searchUsers } from "../controllers/user.controllers";
-import { protect } from "../middleware/authMiddleware";
+import {
+  getUserProfile,
+  searchUsers,
+} from "../controllers/user.controllers.js";
+import { protect } from "../middleware/auth.middleware.js";
 
 const userRouter = Router();
 
-// User Routes
 userRouter.get("/me", protect, getUserProfile);
 userRouter.get("/", protect, searchUsers);
 

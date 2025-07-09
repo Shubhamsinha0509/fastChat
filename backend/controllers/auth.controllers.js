@@ -1,61 +1,62 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import User from "../models/userModel.js";
+import User from "../models/user.models.js";
 import asyncHandler from "express-async-handler";
 import { JWT_SECRET } from "../config/env.js";
 
-//     Register a new user
-// @route   POST /api/auth/sign-up
+// Register a new user
 export const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
 
-  // Check for existing user
+  if (!username || !email || !password) {
+    res.status(400);
+    throw new Error("Please provide all required fields");
+  }
+
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     res.status(400);
     throw new Error("User already exists");
   }
 
-  // Hash password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Create user
   const user = await User.create({
-    name,
+    username,
     email,
     password: hashedPassword,
   });
 
-  if (user) {
-    const token = generateToken(user._id);
-    res
-      .cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-      })
-      .status(201)
-      .json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-      });
-  } else {
-    res.status(500);
-    throw new Error("Failed to create user");
-  }
+  const token = generateToken(user._id);
+
+  res
+    .cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    })
+    .status(201)
+    .json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+    });
 });
 
-//     Login user
-// @route   POST /api/auth/sign-in
+// Login user
 export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  if (!email || !password) {
+    res.status(400);
+    throw new Error("Email and password are required");
+  }
 
-  if (!user || !(await bcrypt.compare(password, user.password))) {
+  const user = await User.findOne({ email });
+  const isMatch = user && (await bcrypt.compare(password, user.password));
+
+  if (!isMatch) {
     res.status(401);
     throw new Error("Invalid email or password");
   }
@@ -71,20 +72,26 @@ export const loginUser = asyncHandler(async (req, res) => {
     })
     .json({
       _id: user._id,
-      name: user.name,
+      username: user.username,
       email: user.email,
     });
 });
 
-//    Logout user
-// @route   POST /api/auth/sign-out
+// Logout user
 export const logoutUser = asyncHandler(async (req, res) => {
-  res.clearCookie("token").status(200).json({ message: "Logged out" });
+  res
+    .clearCookie("token", {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    })
+    .status(200)
+    .json({ message: "Logged out" });
 });
 
-// Helper function to generate JWT
-const generateToken = (id) => {
-  return jwt.sign({ id }, JWT_SECRET, {
+// Helper: Generate JWT
+const generateToken = (userId) => {
+  return jwt.sign({ userId }, JWT_SECRET, {
     expiresIn: "30d",
   });
 };

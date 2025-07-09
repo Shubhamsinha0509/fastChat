@@ -1,15 +1,19 @@
+
+
 import { Router } from "express";
 import {
   registerUser,
   loginUser,
   logoutUser,
-} from "../controllers/auth.controllers";
+} from "../controllers/auth.controllers.js";
 
-const router = Router();
+const authRouter = Router();
 
-// Auth Routes
-router.post("/sign-up", registerUser);
-router.post("/log-in", loginUser);
-router.post("/log-out", logoutUser);
+authRouter.post("/sign-up", registerUser);
+authRouter.post("/log-in", loginUser);
+authRouter.post("/log-out", (req, res, next) => {
+  console.log("🔁 Logout route hit");
+  logoutUser(req, res, next);
+});
 
-export default router;
+export default authRouter;
