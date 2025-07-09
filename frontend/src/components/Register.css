@@ -2,11 +2,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}::selection{
+  background-color: rgba(128, 128, 128, 0.507);
 }
+
 
 .Register-Container {
   height: fit-content;
-  width: 30vw;
+  width: 28vw;
   border: 1px solid rgba(0, 0, 0, 0.203);
   border-radius: 1rem;
   margin: auto;
@@ -16,9 +19,11 @@
   font-size: 1.4rem;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   background-color: rgba(255, 255, 255, 0.616);
+  backdrop-filter: blur(20px) saturate(200%);
 }
 a {
   color: rgb(76, 76, 167);
+  text-decoration: none;
 }
 
 .FormWrapper {
@@ -53,7 +58,7 @@ a {
 
 .registerHead p {
   /* color: #10129f; */
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   letter-spacing: 2px;
   font-weight: 900;
   gap: 1px;
@@ -259,6 +264,9 @@ a {
   color: rgba(0, 0, 0, 0.71);
   margin-top: 1rem;
 }
+.text span{
+  margin-left: 0.3rem;
+}
 .eye-span {
   position: absolute;
   display: inline-block;
@@ -311,7 +319,7 @@ label img {
   }
 }
 
-@media (max-width: 1000px){
+@media (min-width: 600px) and (max-width:1024px){
   /* Your styles here */
   .registerHead img {
     height: 55px;
@@ -323,7 +331,7 @@ label img {
   }
 
   .Register-Container {
-    width: 60vw;
+    width: 50vw;
     height: fit-content;
     font-size: 1.1rem;
     /* bottom: 5rem; */

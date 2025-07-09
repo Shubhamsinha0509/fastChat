@@ -124,7 +124,7 @@ const promise = new Promise((resolve, reject) => {
           <button type="submit" ref={submitRef}>Sign up</button>
         </form>
         <div className="text">
-          you do have an account? <Link to={"/Login"}>Login</Link>
+          you have an account? <span><Link to={"/Login"}>Login</Link></span>
         </div>
       </div>
     </div>

@@ -56,7 +56,7 @@ const Login = () => {
               resolve(msg);
                   submitRef.current.innerHTML = 'wait ...'
                   submitRef.current.style.color = 'skyblue';
-            }, 1000)
+            }, 1500)
           )
       )
       .then((msg) => {
@@ -101,6 +101,7 @@ const Login = () => {
               style={{ marginTop: "1.5rem" }}
             />
             <input
+            autoComplete="true"
               type={showPassword ? "text" : "password"}
               placeholder="password"
               required
@@ -118,7 +119,7 @@ const Login = () => {
             </button>
           </form>
           <p className="text">
-            don't have an account? <Link to={"/"}>Register</Link>
+            don't have an account? <span><Link to={"/"}>Register</Link></span> 
           </p>
         </div>
       </div>
