@@ -41,7 +41,7 @@ a {
   margin-top: 1.5rem;
 }
 
-.register p {
+.register p{
   font-weight: 100;
   font-size: 1rem;
   color: rgba(0, 0, 0, 0.63);
@@ -57,7 +57,7 @@ a {
   font-size: 1.2rem;
 }
 
-.registerHead p {
+.registerHead p{
   /* color: #10129f; */
   font-size: 1.7rem;
   letter-spacing: 2px;
