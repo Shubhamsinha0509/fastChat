@@ -92,7 +92,7 @@ const Login = () => {
             <motion.p
               initial={{ opacity: 0, y: 300, rotate: 360 }}
               animate={{ opacity: 1, y: 0, rotate: 0 }}
-              transition={{ delay: 0.4``, duration: 0.5, ease: "easeInOut" }}
+              transition={{ delay: 0.4, duration: 0.5, ease: "easeInOut" }}
               className="FastChat-text"
             >
               FastChat
