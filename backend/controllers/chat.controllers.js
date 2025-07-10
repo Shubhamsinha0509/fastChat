@@ -11,9 +11,9 @@ export const accessChat = asyncHandler(async (req, res) => {
 
   let chat = await Chat.findOne({
     isGroupChat: false,
-    members: { $all: [req.user._id, userId] },
+    users: { $all: [req.user._id, userId] },
   })
-    .populate("members", "-password")
+    .populate("users", "-password")
     .populate("latestMessage");
 
   if (chat) return res.status(200).json(chat);
@@ -21,11 +21,11 @@ export const accessChat = asyncHandler(async (req, res) => {
   const newChat = await Chat.create({
     chatName: "sender",
     isGroupChat: false,
-    members: [req.user._id, userId],
+    users: [req.user._id, userId],
   });
 
   const fullChat = await Chat.findById(newChat._id).populate(
-    "members",
+    "users",
     "-password"
   );
   res.status(201).json(fullChat);
@@ -33,9 +33,9 @@ export const accessChat = asyncHandler(async (req, res) => {
 
 export const fetchChats = asyncHandler(async (req, res) => {
   const chats = await Chat.find({
-    members: { $in: [req.user._id] },
+    users: { $in: [req.user._id] },
   })
-    .populate("members", "-password")
+    .populate("users", "-password")
     .populate("latestMessage")
     .sort({ updatedAt: -1 });
 
@@ -54,12 +54,12 @@ export const createGroupChat = asyncHandler(async (req, res) => {
 
   const groupChat = await Chat.create({
     chatName: name,
-    members,
+    users: members,
     isGroupChat: true,
   });
 
   const fullGroupChat = await Chat.findById(groupChat._id).populate(
-    "members",
+    "users",
     "-password"
   );
   res.status(201).json(fullGroupChat);
@@ -72,7 +72,7 @@ export const renameGroup = asyncHandler(async (req, res) => {
     chatId,
     { chatName },
     { new: true }
-  ).populate("members", "-password");
+  ).populate("users", "-password");
 
   if (!updatedChat) {
     res.status(404);
@@ -87,9 +87,9 @@ export const addToGroup = asyncHandler(async (req, res) => {
 
   const updatedChat = await Chat.findByIdAndUpdate(
     chatId,
-    { $addToSet: { members: userId } },
+    { $addToSet: { users: userId } },
     { new: true }
-  ).populate("members", "-password");
+  ).populate("users", "-password");
 
   if (!updatedChat) {
     res.status(404);
@@ -104,9 +104,9 @@ export const removeFromGroup = asyncHandler(async (req, res) => {
 
   const updatedChat = await Chat.findByIdAndUpdate(
     chatId,
-    { $pull: { members: userId } },
+    { $pull: { users: userId } },
     { new: true }
-  ).populate("members", "-password");
+  ).populate("users", "-password");
 
   if (!updatedChat) {
     res.status(404);
