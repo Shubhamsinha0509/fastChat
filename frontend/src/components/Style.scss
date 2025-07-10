@@ -1,8 +1,28 @@
-
-@import './Home/Home.scss';
-@import './Chat/Chat.scss';
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'poppins',sans-serif;
+}
+
+// Dark mode color 
+ $darkBackground1:#00224D;
+ $darkBackground2:#31363F;
+ $darkBackground3:#1B3C53;
+ $darkBackground4:rgba(113, 42, 92, 1);
+ $DarkButtons:#FCFAEE;
+
+
+    
+
+
+// light mode color
+    $lightBackground1:#3674B5;
+    $lightBackground2:#91C8E4;
+    $lightBackground3:#C5D3E8;
+    $lightButtons:#5b65f8;
+
+.Home-container{
+    // background-color: ;
+
 }
