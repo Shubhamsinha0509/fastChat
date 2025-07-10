@@ -96,14 +96,14 @@ const Register = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, height: 0 ,y: 100 , width:0, perspective: 200}}
+      initial={{ opacity: 0, height: 0 ,y: 100, perspective: 200}}
       animate={{
         // rotate: -360,
         opacity: 1,
         y: 0,
         x: 0,
         height: 375,
-        width:410
+        // width:410
       }}
       style={{
         overflow: "hidden",

@@ -82,14 +82,13 @@ const Login = () => {
   return (
     <div>
       <motion.div
-        initial={{ opacity: 0, height: 0, width: 0, y: 100, perspective: 200 }}
+        initial={{ opacity: 0, height: 0, y: 100, perspective: 200 }}
         animate={{
           opacity: 1,
           // rotate:360,
           y: 0,
           x: 0,
           height: 378,
-          width: 410,
         }}
         style={{
           overflow: "hidden",
