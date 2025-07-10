@@ -21,6 +21,25 @@ const Register = () => {
 
   const submitRef = useRef(null);
 
+  // for fire animation
+  const fireRef1= useRef();
+  const fireRef2= useRef();
+
+  useEffect(() => {
+    fireRef1.current.classList.add('fireRef');
+    fireRef2.current.classList.add('fireRef');
+  },[])
+
+  setTimeout(() => {
+    fireRef1.current.classList.remove('fireRef');
+    fireRef2.current.classList.remove('fireRef');
+    
+  }, 850);
+
+
+
+  
+
   // ..states
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -89,7 +108,7 @@ const Register = () => {
       style={{
         overflow: "hidden",
       }}
-      transition={{ duration: 1.2, ease: "easeInOut" }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
 
       className="Register-Container"
       data-scroll
@@ -99,14 +118,23 @@ const Register = () => {
       <div className="FormWrapper">
         <div className="registerHead">
           <div className="icon-wrapper" ref={logoWrapperRef}>
-            <img src="/Rocket.png" className="fastchat-icon" />
-            <div className="rocket-fire"></div>
-            <div className="rocket-fire small"></div>
+            <motion.img 
+            initial={{opacity: 0, y: 500,scale:8}}
+            animate={{opacity:1,y:0,scale:1}}
+            transition={{delay:0.1,duration:0.3,ease:'circIn'}}
+            src="/Rocket.png" className="fastchat-icon" />
+            <motion.div 
+            ref={fireRef1}
+            className="rocket-fire"
+            ></motion.div>
+            <motion.div 
+            ref={fireRef2}
+            className="rocket-fire small"></motion.div>
           </div>
           <motion.p
-              initial={{ opacity: 0, y: 500,scale:10}}
-              animate={{ opacity: 1, y: 0 ,scale:1.1}}
-              transition={{ delay: 0.5, duration: 0.8, ease: "easeInOut" }}
+              initial={{ opacity: 0, y: -500,scale:8}}
+              animate={{ opacity: 1, y: 0 ,scale:1}}
+              transition={{ delay: 0.1, duration: 0.6, ease: "easeInOut" }}
             className="FastChat-text"
           >
             FastChat

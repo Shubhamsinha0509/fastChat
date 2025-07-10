@@ -1,12 +1,12 @@
 // import React from 'react'
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Register.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 import AuthStore from "../Stores/AuthStore";
-import { motion } from "motion/react";
+import { delay, motion, scale } from "motion/react";
 const Login = () => {
   const [showPassword, setshowPassword] = useState(false);
   // const [name, setName] = useState("");
@@ -15,6 +15,20 @@ const Login = () => {
   const logoWrapperRef = useRef(null);
   const submitRef = useRef(null);
   const { handleLogin } = AuthStore();
+
+  const fireRef1 = useRef();
+  const fireRef2 = useRef();
+
+  useEffect(() => {
+    fireRef1.current.classList.add("fireRef");
+    fireRef2.current.classList.add("fireRef");
+  }, []);
+
+  setTimeout(() => {
+    fireRef1.current.classList.remove("fireRef");
+    fireRef2.current.classList.remove("fireRef");
+  }, 850);
+
   const handleSignUp = (e) => {
     e.preventDefault();
 
@@ -68,32 +82,38 @@ const Login = () => {
   return (
     <div>
       <motion.div
-        initial={{opacity:0,height:0, width:0,y:100,perspective:200}}
+        initial={{ opacity: 0, height: 0, width: 0, y: 100, perspective: 200 }}
         animate={{
-          opacity:1,
+          opacity: 1,
           // rotate:360,
-          y:0,
-          x:0,
-          height:378,
-          width:410
+          y: 0,
+          x: 0,
+          height: 378,
+          width: 410,
         }}
         style={{
-          overflow:"hidden",
+          overflow: "hidden",
         }}
-        transition={{duration:1.2,ease:"easeInOut"}}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
         className="Register-Container"
       >
         <div className="FormWrapper">
           <div className="registerHead">
             <div className="icon-wrapper" ref={logoWrapperRef}>
-              <img src="/Rocket.png" className="fastchat-icon" />
-              <div className="rocket-fire"></div>
-              <div className="rocket-fire small"></div>
+              <motion.img
+                src="/Rocket.png"
+                initial={{opacity:0,y:500,scale:8}}
+                animate={{opacity:1,y:0,scale:1}}
+                transition={{delay:0.1,duration:0.3}}
+                className="fastchat-icon"
+              />
+              <div ref={fireRef1} className="rocket-fire"></div>
+              <div ref={fireRef2} className="rocket-fire small"></div>
             </div>
             <motion.p
-              initial={{ opacity: 0, y: 500,scale:8}}
-              animate={{ opacity: 1, y: 0,scale:1.1}}
-              transition={{ delay: 0.5, duration:0.8, ease: "easeInOut" }}
+              initial={{ opacity: 0, y: -500, scale: 8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.1, duration: 0.6, ease: "easeInOut" }}
               className="FastChat-text"
             >
               FastChat
