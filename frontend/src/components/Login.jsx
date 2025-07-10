@@ -90,9 +90,7 @@ const Login = () => {
           x: 0,
           height: 378,
         }}
-        style={{
-          overflow: "hidden",
-        }}
+
         transition={{ duration: 0.5, ease: "easeInOut" }}
         className="Register-Container"
       >

@@ -105,9 +105,7 @@ const Register = () => {
         height: 375,
         // width:410
       }}
-      style={{
-        overflow: "hidden",
-      }}
+
       transition={{ duration: 0.5, ease: "easeInOut" }}
 
       className="Register-Container"
