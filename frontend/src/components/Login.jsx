@@ -68,18 +68,19 @@ const Login = () => {
   return (
     <div>
       <motion.div
-        initial={{opacity:0,y:-100,perspective:200}}
+        initial={{opacity:0,height:0, width:0,y:100,perspective:200}}
         animate={{
           opacity:1,
           // rotate:360,
           y:0,
           x:0,
-          // height:378,
+          height:378,
+          width:410
         }}
         style={{
           overflow:"hidden",
         }}
-        transition={{duration:1,ease:"easeInOut"}}
+        transition={{duration:1.2,ease:"easeInOut"}}
         className="Register-Container"
       >
         <div className="FormWrapper">
@@ -90,9 +91,9 @@ const Login = () => {
               <div className="rocket-fire small"></div>
             </div>
             <motion.p
-              initial={{ opacity: 0, y: 300, rotate: 360 }}
-              animate={{ opacity: 1, y: 0, rotate: 0 }}
-              transition={{ delay: 0.4, duration: 0.5, ease: "easeInOut" }}
+              initial={{ opacity: 0, y: 500,scale:8}}
+              animate={{ opacity: 1, y: 0,scale:1.1}}
+              transition={{ delay: 0.5, duration:0.8, ease: "easeInOut" }}
               className="FastChat-text"
             >
               FastChat
