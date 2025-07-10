@@ -36,11 +36,15 @@ export const registerUser = asyncHandler(async (req, res) => {
       sameSite: "strict",
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     })
-    .status(201)
+    .status(200) 
     .json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
+      success: true, 
+      message: "User registered successfully", 
+      data: {
+        id: user._id.toString(), 
+        email: user.email,
+      },
+      token: token
     });
 });
 
@@ -70,10 +74,16 @@ export const loginUser = asyncHandler(async (req, res) => {
       sameSite: "strict",
       maxAge: 30 * 24 * 60 * 60 * 1000,
     })
+    .status(200)
     .json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
+      success: true,
+      message: "Login successful",
+      data: {
+        id: user._id.toString(),
+        username: user.username,
+        email: user.email,
+      },
+      token: token
     });
 });
 
@@ -86,7 +96,10 @@ export const logoutUser = asyncHandler(async (req, res) => {
       secure: process.env.NODE_ENV === "production",
     })
     .status(200)
-    .json({ message: "Logged out" });
+    .json({
+      success: true, 
+      message: "Logged out successfully" 
+    });
 });
 
 // Helper: Generate JWT
