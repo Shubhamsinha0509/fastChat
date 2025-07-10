@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 import AuthStore from "../Stores/AuthStore";
-
+import { motion } from "motion/react";
 const Login = () => {
   const [showPassword, setshowPassword] = useState(false);
   // const [name, setName] = useState("");
@@ -14,7 +14,7 @@ const Login = () => {
   const [mail, setmail] = useState("");
   const logoWrapperRef = useRef(null);
   const submitRef = useRef(null);
-  const {handleLogin} = AuthStore();
+  const { handleLogin } = AuthStore();
   const handleSignUp = (e) => {
     e.preventDefault();
 
@@ -40,7 +40,7 @@ const Login = () => {
 
         // Add animation class to trigger width transition
         submitRef.current.classList.add("animate");
-        submitRef.current.setAttribute('disabled', 'true');
+        submitRef.current.setAttribute("disabled", "true");
 
         setTimeout(() => {
           logoWrapperRef.current.classList.remove("rocket-launch"); // Remove animate to allow re-trigger
@@ -54,8 +54,8 @@ const Login = () => {
             setTimeout(() => {
               submitRef.current.classList.remove("animate");
               resolve(msg);
-                  submitRef.current.innerHTML = 'wait ...'
-                  submitRef.current.style.color = 'skyblue';
+              submitRef.current.innerHTML = "wait ...";
+              submitRef.current.style.color = "skyblue";
             }, 1500)
           )
       )
@@ -63,11 +63,25 @@ const Login = () => {
         toast.success(msg);
       });
 
-      handleLogin(mail,password)
+    handleLogin(mail, password);
   };
   return (
     <div>
-      <div className="Register-Container">
+      <motion.div
+        initial={{opacity:0,y:-100,perspective:200}}
+        animate={{
+          opacity:1,
+          // rotate:360,
+          y:0,
+          x:0,
+          // height:378,
+        }}
+        style={{
+          overflow:"hidden",
+        }}
+        transition={{duration:1,ease:"easeInOut"}}
+        className="Register-Container"
+      >
         <div className="FormWrapper">
           <div className="registerHead">
             <div className="icon-wrapper" ref={logoWrapperRef}>
@@ -75,7 +89,14 @@ const Login = () => {
               <div className="rocket-fire"></div>
               <div className="rocket-fire small"></div>
             </div>
-            <p>FastChat</p>
+            <motion.p
+              initial={{ opacity: 0, y: 300, rotate: 360 }}
+              animate={{ opacity: 1, y: 0, rotate: 0 }}
+              transition={{ delay: 0.4, duration: 0.5, ease: "easeInOut" }}
+              className="FastChat-text"
+            >
+              FastChat
+            </motion.p>
           </div>
           <div
             className="register"
@@ -101,7 +122,7 @@ const Login = () => {
               style={{ marginTop: "1.5rem" }}
             />
             <input
-            autoComplete="true"
+              autoComplete="true"
               type={showPassword ? "text" : "password"}
               placeholder="password"
               required
@@ -119,10 +140,13 @@ const Login = () => {
             </button>
           </form>
           <p className="text">
-            don't have an account? <span><Link to={"/"}>Register</Link></span> 
+            don't have an account?{" "}
+            <span>
+              <Link to={"/"}>Register</Link>
+            </span>
           </p>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
