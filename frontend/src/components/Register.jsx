@@ -106,7 +106,7 @@ const Register = () => {
         // width:410
       }}
 
-      transition={{ duration: 0.5, ease: "easeInOut" }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
 
       className="Register-Container"
       data-scroll
