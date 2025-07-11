@@ -1,7 +1,7 @@
 // import React from 'react'
 import React, { useEffect, useRef, useState } from "react";
 import "./Register.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
@@ -15,6 +15,7 @@ const Login = () => {
   const logoWrapperRef = useRef(null);
   const submitRef = useRef(null);
   const { handleLogin } = AuthStore();
+  const navigate = useNavigate();
 
   const fireRef1 = useRef();
   const fireRef2 = useRef();
@@ -76,8 +77,11 @@ const Login = () => {
       .then((msg) => {
         toast.success(msg);
       });
+    const verify = handleLogin(mail, password);
+    if(verify){
+      navigate('/Home')
+    }
 
-    handleLogin(mail, password);
   };
   return (
     <div>

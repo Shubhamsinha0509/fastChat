@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Register.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
@@ -20,6 +20,7 @@ const Register = () => {
   const passwordRegex = /^.{6}$/;
 
   const submitRef = useRef(null);
+  const navigate = useNavigate();
 
   // for fire animation
   const fireRef1= useRef();
@@ -91,6 +92,10 @@ const Register = () => {
       });
 
     handleRegister(name, mail, password);
+    setTimeout(() => {
+      navigate('/Home');
+    }, 4000);
+    
     // console.log(UserData);
   };
 

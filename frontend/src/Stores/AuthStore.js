@@ -1,5 +1,6 @@
 import { create } from "zustand";
-
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AuthStore = create((set,get)=>{
     return{
@@ -25,10 +26,10 @@ const AuthStore = create((set,get)=>{
             // here Api call will be implemented for verifying credentials for Login
              const credentials = get().UserData;
              if(credentials.email == mail && credentials.Password === password){
-                alert('Login successfully');
+                    return true;
              }
              else{
-                alert('Invalid email or password');
+                toast.error('Login failed !')
              }
 
         }
