@@ -2,6 +2,10 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
+import helmet from "helmet";
+import xssClean from "xss-clean";
+import apiLimiter from "./middleware/ratelimit.js";
+import mongoSanitize from "express-mongo-sanitize";
 dotenv.config();
 
 import { PORT } from "./config/env.js";
@@ -20,17 +24,19 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
+app.use("/api", apiLimiter);
+app.use(helmet());
+app.use(xssClean());
+app.use(mongoSanitize());
 
 app.get("/", (req, res) => {
   res.send("Hello from node api");
 });
 
-
 app.use("/api/chats", chatRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/messages", messageRouter);
 app.use("/api/users", userRouter);
-
 
 app.use(notFound);
 app.use(errorHandler);
