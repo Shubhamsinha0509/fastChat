@@ -14,7 +14,7 @@ const Chats = () => {
     <div className='chats-container'>
       <div className='chats-header'>
         <FontAwesomeIcon icon={faSearch} className='search-icon'/>
-        <input className='searchBar' ref={searchRef} placeholder='search contact ..' value={searchValue} onChange={(e)=>handleChange(e)}/>
+        <input className='searchBar' ref={searchRef} placeholder='search chat..' value={searchValue} onChange={(e)=>handleChange(e)}/>
         <div className='profile-icon'><FontAwesomeIcon icon={faUser} className='user-icon'/></div>
       </div>
     </div>

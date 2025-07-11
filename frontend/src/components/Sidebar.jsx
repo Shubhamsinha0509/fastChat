@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { faBars, faCog, faCross, faEnvelope, faGear, faHeart, faMailBulk, faMoon, faPhone, faPlus, faRobot, faUserGroup, faVestPatches} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faCog, faCross, faEnvelope, faGear, faHeart, faMailBulk, faMoon, faPhone, faPlus, faReply, faRightFromBracket, faRobot, faUserGroup, faVestPatches} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun } from '@fortawesome/free-solid-svg-icons';
 // import { faMoon } from '@fortawesome/free-solid-svg-icons';
@@ -55,6 +55,12 @@ const Sidebar = () => {
       animate={{x:0,opacity:1,y:0}}
       transition={{delay:0.2,duration:0.3,ease:'easeInOut'}}
        className='features'><FontAwesomeIcon icon={faEnvelope} className='featureIcon' /><span>Contact us</span></motion.div>
+
+      <motion.div
+      initial={{opacity:0,x:-300}}
+      animate={{x:0,opacity:1,y:0}}
+      transition={{delay:0.2,duration:0.3,ease:'easeInOut'}}
+       className='features'><span className='logout'>logout <FontAwesomeIcon icon={faRightFromBracket}/> </span></motion.div>
 
     </motion.div>
   )
