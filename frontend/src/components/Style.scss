@@ -1,28 +1,136 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'poppins',sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "poppins", sans-serif;
 }
 
-// Dark mode color 
- $darkBackground1:#00224D;
- $darkBackground2:#31363F;
- $darkBackground3:#1B3C53;
- $darkBackground4:rgba(113, 42, 92, 1);
- $DarkButtons:#FCFAEE;
-
-
-    
-
+// Dark mode color
+$darkBackground1: #00224d;
+$darkBackground2: #31363f;
+$darkBackground3: #1b3c53;
+$darkBackground4: rgba(113, 42, 92, 1);
+$DarkButtons: #fcfaee;
 
 // light mode color
-    $lightBackground1:#3674B5;
-    $lightBackground2:#91C8E4;
-    $lightBackground3:#C5D3E8;
-    $lightButtons:#5b65f8;
+$lightBackground1: #3674b5;
+$lightBackground2: #91c8e4;
+$lightBackground3: #c5d3e8;
+$lightButtons: #5b65f8;
 
-.Home-container{
-    // background-color: ;
+.Home-container {
+  // background-color: skyblue;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  border: 1px solid black;
+  align-items: flex-end;
 
+  .sidebar-container {
+    height: 98vh;
+    width: 20%;
+    background-color: rgba(128, 128, 128, 0.048);
+    // background-color: skyblue;
+    margin: 0.5rem;
+    padding: 1rem 0px 0px 1rem;
+    // border: 10px solid $lightBackground3;
+    border-radius: 1rem;
+
+    .features {
+      height: 10vh;
+      cursor: pointer;
+      padding: 1rem 0rem 1rem 1rem;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+
+      &:hover {
+        border-radius: 0.5rem;
+        background-color: rgba(128, 128, 128, 0.103);
+      }
+
+      .featureIcon {
+        margin-right: 1rem;
+        font-size: 1.3rem;
+        color: #042551;
+      }
+      span {
+        font-size: 1.1rem;
+        font-weight: 200;
+      }
+    }
+  }
+
+
+
+  .chats-container {    
+    height:98vh;
+    width: 78%;
+    // background-color: rgba(128, 128, 128, 0.057);
+    margin: 0.5rem;
+    padding: 0.5rem;
+    border-radius:1rem;
+
+
+    .chats-header{
+        height: fit-content;
+        width: 100%;
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        
+        .search-icon{
+            font-size: 1.2rem;
+            position: relative;
+            left:49%;
+            color: #00214d98;
+            // margin-right: 1rem;
+        }
+        
+        .searchBar{
+            width: 50%;
+            margin-right: 1rem;
+            height: 1.5rem;
+            padding:1rem;
+            padding-left: 1rem;
+            border-radius:1rem;
+            border:0.5px solid #4545455d;
+            outline:none;
+            &::placeholder{
+                font-size:1rem;
+                letter-spacing: 1px;
+                opacity: 0.6;
+                text-align: left;
+            }
+            color:rgba(0, 0, 0, 0.436);
+        }
+        .active{
+            border: 2px solid rgb(114, 114, 190);
+        }
+
+        .profile-icon{
+            height: 35px;
+            width: 35px;
+            border-radius: 50%;
+            border: 1px solid rgb(3, 3, 35);
+            object-fit: cover;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .user-icon{
+                height: 60%;
+                width: 60%;
+                // color: rgba(4, 4, 38, 0.573);
+                color: inherit;
+            }
+        }
+
+
+
+    }
+  }
 }
