@@ -1,14 +1,13 @@
 import asyncHandler from "express-async-handler";
-import User from "../models/user.models.js";
-import Chat from "../models/chat.models.js";
 import Message from "../models/message.models.js";
+import Chat from "../models/chat.models.js";
+import User from "../models/user.models.js";
 
-// Send a message
 export const sendMessage = asyncHandler(async (req, res) => {
   const { content, chatId } = req.body;
 
   if (!content || !chatId) {
-    return res.status(400).send("Missing content or chatId");
+    return res.status(400).json({ success: false, message: "Missing content or chatId" });
   }
 
   let message = await Message.create({
@@ -17,23 +16,24 @@ export const sendMessage = asyncHandler(async (req, res) => {
     chat: chatId,
   });
 
-  message = await message.populate("sender", "username email avatar");
-  message = await message.populate("chat");
+  message = await message
+    .populate("sender", "username email avatar")
+    .populate("chat");
+
   message = await User.populate(message, {
-    path: "chat.members",
+    path: "chat.users",
     select: "username email avatar",
   });
 
   await Chat.findByIdAndUpdate(chatId, { latestMessage: message });
 
-  res.status(201).json(message);
+  res.status(201).json({ success: true, data: message });
 });
-
 
 export const getAllMessages = asyncHandler(async (req, res) => {
   const messages = await Message.find({ chat: req.params.chatId })
     .populate("sender", "username email avatar")
     .populate("chat");
 
-  res.json(messages);
+  res.status(200).json({ success: true, data: messages });
 });
