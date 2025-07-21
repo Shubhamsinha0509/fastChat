@@ -4,6 +4,12 @@ import User from "../models/user.models.js";
 import asyncHandler from "express-async-handler";
 import { JWT_SECRET } from "../config/env.js";
 
+const generateToken = (userId) => {
+  return jwt.sign({ userId }, JWT_SECRET, {
+    expiresIn: "30d",
+  });
+};
+
 // Register a new user
 export const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
@@ -13,10 +19,16 @@ export const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Please provide all required fields");
   }
 
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
+  const existingEmail = await User.findOne({ email });
+  if (existingEmail) {
     res.status(400);
-    throw new Error("User already exists");
+    throw new Error("Email is already in use");
+  }
+
+  const existingUsername = await User.findOne({ username });
+  if (existingUsername) {
+    res.status(400);
+    throw new Error("Username is already taken");
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -34,17 +46,18 @@ export const registerUser = asyncHandler(async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      maxAge: 30 * 24 * 60 * 60 * 1000,
     })
-    .status(200) 
+    .status(201)
     .json({
-      success: true, 
-      message: "User registered successfully", 
+      success: true,
+      message: "User registered successfully",
       data: {
-        id: user._id.toString(), 
+        id: user._id,
+        username: user.username,
         email: user.email,
       },
-      token: token
+      token,
     });
 });
 
@@ -58,9 +71,8 @@ export const loginUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.findOne({ email });
-  const isMatch = user && (await bcrypt.compare(password, user.password));
 
-  if (!isMatch) {
+  if (!user || !(await bcrypt.compare(password, user.password))) {
     res.status(401);
     throw new Error("Invalid email or password");
   }
@@ -79,11 +91,11 @@ export const loginUser = asyncHandler(async (req, res) => {
       success: true,
       message: "Login successful",
       data: {
-        id: user._id.toString(),
+        id: user._id,
         username: user.username,
         email: user.email,
       },
-      token: token
+      token,
     });
 });
 
@@ -92,19 +104,12 @@ export const logoutUser = asyncHandler(async (req, res) => {
   res
     .clearCookie("token", {
       httpOnly: true,
-      sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
     })
     .status(200)
     .json({
-      success: true, 
-      message: "Logged out successfully" 
+      success: true,
+      message: "Logged out successfully",
     });
 });
-
-// Helper: Generate JWT
-const generateToken = (userId) => {
-  return jwt.sign({ userId }, JWT_SECRET, {
-    expiresIn: "30d",
-  });
-};
